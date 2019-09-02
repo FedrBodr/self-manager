@@ -1,0 +1,11 @@
+# Тестовый реквест
+POST http://localhost:8080/api/project
+Content-Type: application/json
+
+{
+    "projectName": "projectName2",
+	"projectIdentifier": "projectIdentifier1" ,
+	"description": "description1"
+}
+###
+
