@@ -1,11 +1,16 @@
-# Тестовый реквест
+# Test request to project creation
 POST http://localhost:8080/api/project
 Content-Type: application/json
 
 {
-    "projectName": "projectName2",
-	"projectIdentifier": "projectIdentifier1" ,
-	"description": "description1"
+    "projectName": "projectName",
+	"projectIdentifier": "projectIdentifier2" ,
+	"description": "description"
 }
+
 ###
+GET http://localhost:8080/api/project/PROJECTIDENTIFIER2
+
+###
+
 
