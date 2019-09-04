@@ -41,8 +41,32 @@ public class ProjectController {
 	}
 
 	@GetMapping("/{projectIdentifier}")
-	public ResponseEntity<Project> testProject(@PathVariable String projectIdentifier) {
+	public ResponseEntity<Project> getProject(@PathVariable String projectIdentifier) {
 		Project project = projectService.getByIdentifier(projectIdentifier);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
+	}
+
+	@GetMapping("/all")
+	public Iterable<Project> getAllProject() {
+		return projectService.getAllProjects();
+	}
+
+	@DeleteMapping("/{projectIdentifier}")
+	public ResponseEntity<?> deleteProject(@PathVariable String projectIdentifier) {
+		projectService.deleteByIdentifier(projectIdentifier);
+		return new ResponseEntity<String>("project with identifier '" + projectIdentifier.toUpperCase() + "' deleted", HttpStatus.OK);
+	}
+
+	@PutMapping("/{projectIdentifier}")
+	public ResponseEntity<?> createNewProject(@PathVariable String projectIdentifier,
+											  @Valid @RequestBody Project project,
+											  BindingResult result) {
+		Optional<ResponseEntity<?>> errorResponseEntityOptional = mapValidationService.mapErroredResultToResponseEntity(result);
+		return errorResponseEntityOptional
+				.orElseGet(() ->
+						new ResponseEntity<Project>(
+								projectService.saveOrUpdateProject(project),
+								HttpStatus.CREATED)
+				);
 	}
 }

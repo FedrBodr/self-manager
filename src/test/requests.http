@@ -3,14 +3,26 @@ POST http://localhost:8080/api/project
 Content-Type: application/json
 
 {
-    "projectName": "projectName",
-	"projectIdentifier": "projectIdentifier2" ,
+    "projectName": "projectName3",
+	"projectIdentifier": "projectIdentifier3" ,
 	"description": "description"
 }
 
 ###
-GET http://localhost:8080/api/project/PROJECTIDENTIFIER2
-
+GET http://localhost:8080/api/project/PROJECTIDENTIFIER3
 ###
+GET http://localhost:8080/api/project/all
+###
+DELETE http://localhost:8080/api/project/PROJECTIDENTIFIER3
+###
+PUT http://localhost:8080/api/project/PROJECTIDENTIFIER3
+Content-Type: application/json
 
+{
+  "id": "1",
+  "projectName": "updated project name",
+  "projectIdentifier": "projectIdentifier3" ,
+  "description": "description"
+}
+###
 

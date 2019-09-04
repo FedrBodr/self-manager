@@ -8,8 +8,6 @@ import ru.fedrbodr.selfmanager.domain.Project;
 import ru.fedrbodr.selfmanager.exceptions.ProjectIdException;
 import ru.fedrbodr.selfmanager.repositories.ProjectRepository;
 
-import javax.validation.ConstraintViolationException;
-
 @Service
 public class ProjectService {
 	private final Logger log = LoggerFactory.getLogger(ProjectService.class);
@@ -31,5 +29,16 @@ public class ProjectService {
 	public Project getByIdentifier(String projectIdentifier){
 		return projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase())
 				.orElseThrow(() -> new ProjectIdException("Project identifier '" + projectIdentifier.toUpperCase()+"' does not exist"));
+	}
+
+	public Iterable<Project> getAllProjects() {
+		return projectRepository.findAll();
+	}
+
+	public void deleteByIdentifier(String projectIdentifier){
+		Project project = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase())
+				.orElseThrow(() ->
+						new ProjectIdException("Cannot delete project with identifier '" + projectIdentifier.toUpperCase() + "', this project does not exist"));
+		projectRepository.delete(project);
 	}
 }
